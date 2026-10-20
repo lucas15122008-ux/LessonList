@@ -61,7 +61,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="py-6 text-center text-sm text-stone-500">LessonList · feito com carinho para famílias homeschoolers</footer>
+      <footer className="py-6 text-center text-sm text-stone-500">LessonList · feito com carinho para famílias homeschoolers · <span className="text-stone-400">By Pegasus</span>
+      </footer>
     </div>
   );
 }

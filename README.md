@@ -6,7 +6,8 @@ Plataforma web para famílias homeschoolers organizarem os estudos de cada filho
 
 - Conta da família com um perfil por aluno
 - Painel "Hoje" com o que cada filho tem no dia
-- Cronograma semanal editável, com cópia do cronograma de um filho para outro como modelo
+- Cronograma semanal editável (adicionar, editar e remover atividades), com cópia do cronograma de um filho para outro como modelo
+- Impressão do cronograma semanal em A4 deitado, de um filho ou de todos
 - Matérias e livros (lendo, quero ler, lido)
 - Histórico escolar: notas, projetos, trabalhos e horas de voluntariado
 - Botão "Enviar sugestão" para coletar feedback dentro do app
@@ -22,7 +23,9 @@ Feito com Next.js 16, Tailwind CSS 4 e Supabase (login e banco Postgres com Row 
 3. Em **Authentication > URL Configuration**, coloque o endereço do site (ex.: `https://lessonlist.vercel.app`) em **Site URL** e adicione `https://lessonlist.vercel.app/auth/confirm` em **Redirect URLs**.
 4. Em **Project Settings > API**, copie a **Project URL** e a **Publishable key**.
 
-> Opcional para o teste com a família: em **Authentication > Sign In / Providers > Email**, desligar **Confirm email** permite entrar logo após criar a conta, sem esperar o e-mail.
+> **E-mail de confirmação:** o servidor de e-mail grátis do Supabase só envia para os e-mails da equipe do projeto e no máximo 2 por hora. Com **Confirm email** ligado, o cadastro de qualquer outra pessoa falha com "Não conseguimos enviar o e-mail de confirmação". Enquanto o app estiver em teste, desligue **Confirm email** em **Authentication > Sign In / Providers > Email**. Para abrir a outras famílias, configure um SMTP próprio (ex.: Resend) em **Authentication > Emails > SMTP Settings** e ligue de novo.
+>
+> Os erros de login e cadastro aparecem nos logs da Vercel (**Logs**, filtrando por `auth:`).
 
 ### 2. Vercel (hospedagem)
 

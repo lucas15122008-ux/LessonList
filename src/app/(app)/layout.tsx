@@ -36,6 +36,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         )}
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">{children}</main>
+      <footer className="py-4 text-center text-xs text-stone-400">LessonList · By Pegasus</footer>
     </div>
   );
 }

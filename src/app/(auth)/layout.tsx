@@ -7,6 +7,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <Logo />
       </div>
       <div className="card w-full max-w-sm">{children}</div>
+      <p className="mt-6 text-xs text-stone-400">By Pegasus</p>
     </main>
   );
 }

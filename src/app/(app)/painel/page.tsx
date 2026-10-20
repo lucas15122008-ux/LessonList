@@ -12,11 +12,18 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-extrabold">Hoje é {dayName.toLowerCase()}</h1>
-        <p className="text-stone-600">
-          {students.length === 0 ? "Comece cadastrando seus filhos." : "Veja o que cada um tem para hoje."}
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-extrabold">Hoje é {dayName.toLowerCase()}</h1>
+          <p className="text-stone-600">
+            {students.length === 0 ? "Comece cadastrando seus filhos." : "Veja o que cada um tem para hoje."}
+          </p>
+        </div>
+        {students.length > 0 && (
+          <Link href="/imprimir" className="btn-ghost" target="_blank">
+            🖨️ Imprimir cronogramas
+          </Link>
+        )}
       </div>
 
       {students.length > 0 && (

@@ -10,12 +10,14 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const supabase = await createClient();
 
-  let ok = false;
+  let error: { message: string } | null = { message: "link sem token" };
   if (tokenHash && type) {
-    ok = !(await supabase.auth.verifyOtp({ type, token_hash: tokenHash })).error;
+    ({ error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash }));
   } else if (code) {
-    ok = !(await supabase.auth.exchangeCodeForSession(code)).error;
+    ({ error } = await supabase.auth.exchangeCodeForSession(code));
   }
+  const ok = !error;
+  if (error) console.error("[auth:confirm]", error.message);
 
   const target = request.nextUrl.clone();
   target.search = "";

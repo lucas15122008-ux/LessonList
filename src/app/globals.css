@@ -43,3 +43,18 @@ body {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold;
   }
 }
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
