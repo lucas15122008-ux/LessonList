@@ -123,6 +123,39 @@ export async function createScheduleItem(fd: FormData) {
   revalidatePath("/", "layout");
 }
 
+export async function updateScheduleItem(fd: FormData) {
+  const { supabase } = await requireUser();
+  const studentId = required(fd, "student_id");
+  const weekday = Number(required(fd, "weekday"));
+  if (!(weekday >= 0 && weekday <= 6)) throw new Error("Dia inválido");
+  const subjectId = optional(fd, "subject_id");
+  let title = text(fd, "title");
+  if (!title && subjectId) {
+    const { data } = await supabase.from("subjects").select("name").eq("id", subjectId).single();
+    title = data?.name ?? "";
+  }
+  if (!title) throw new Error("Dê um nome à atividade ou escolha uma matéria");
+
+  check(
+    (
+      await supabase
+        .from("schedule_items")
+        .update({
+          subject_id: subjectId,
+          weekday,
+          title,
+          start_time: required(fd, "start_time"),
+          end_time: required(fd, "end_time"),
+          notes: optional(fd, "notes"),
+        })
+        .eq("id", required(fd, "id"))
+        .eq("student_id", studentId)
+    ).error,
+  );
+  revalidatePath("/", "layout");
+  redirect(studentPath(studentId));
+}
+
 export async function deleteScheduleItem(fd: FormData) {
   const { supabase } = await requireUser();
   check((await supabase.from("schedule_items").delete().eq("id", required(fd, "id"))).error);
