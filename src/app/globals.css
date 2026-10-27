@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
+/* Tokens documentados em DESIGN.md. Verde lousa é a única cor de ação; o amarelo marca-texto só marca "hoje". */
 @theme inline {
-  --font-sans: var(--font-nunito);
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-paper: #fbfaf7;
-  --color-ink: #1f2937;
+  --font-sans: var(--font-text);
+  --font-display: var(--font-literata);
+  --color-brand-50: #eef3ef;
+  --color-brand-100: #dce8df;
+  --color-brand-500: #3f7a5f;
+  --color-brand-600: #2c5a46;
+  --color-brand-700: #21463a;
+  --color-marker: #f2d65c;
+  --color-paper: #f1f0ea;
+  --color-surface: #fcfbf8;
+  --color-ink: #1e2621;
 }
 
 :root {
@@ -20,27 +24,41 @@ body {
   color: var(--color-ink);
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+}
+
 @layer components {
   .card {
-    @apply rounded-2xl border border-stone-200 bg-white p-4 shadow-sm sm:p-5;
+    @apply rounded-lg border border-stone-300/80 bg-surface p-4 sm:p-5;
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-xl bg-brand-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-brand-700 disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md bg-brand-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-brand-700 disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-50;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-stone-300 bg-surface px-3 py-2 text-sm font-semibold text-stone-700 transition-colors hover:border-stone-400 hover:bg-white;
   }
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-lg px-2 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50;
+    @apply inline-flex items-center justify-center rounded-md px-2 py-1 text-xs font-semibold text-red-700 transition-colors hover:bg-red-50;
   }
   .input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-base outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 sm:text-sm;
+    @apply w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-base focus:border-brand-600 focus:ring-2 focus:ring-brand-100 focus-visible:outline-none sm:text-sm;
   }
   .label {
     @apply mb-1 block text-sm font-semibold text-stone-700;
   }
   .chip {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold;
+  }
+  /* Marca-texto atrás da palavra, como no caderno. Só para o dia de hoje. */
+  .marker {
+    background: linear-gradient(transparent 55%, var(--color-marker) 55%, var(--color-marker) 92%, transparent 92%);
+    padding-inline: 0.15em;
+    box-decoration-break: clone;
+  }
+  .page-title {
+    @apply font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl;
   }
 }
 

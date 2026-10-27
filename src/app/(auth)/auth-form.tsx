@@ -10,19 +10,17 @@ export function AuthForm({ mode, notice }: { mode: "entrar" | "cadastro"; notice
 
   if (state.message) {
     return (
-      <div className="text-center">
-        <div className="text-4xl" aria-hidden>
-          📬
-        </div>
-        <p className="mt-3 font-semibold">{state.message}</p>
+      <div>
+        <p className="font-display text-lg font-semibold">Confira seu e-mail</p>
+        <p className="mt-1 text-pretty text-stone-700">{state.message}</p>
       </div>
     );
   }
 
   return (
     <form action={action} className="space-y-4">
-      <h1 className="text-xl font-extrabold">{isSignUp ? "Criar conta da família" : "Entrar"}</h1>
-      {notice && <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-800">{notice}</p>}
+      <h1 className="font-display text-2xl font-semibold tracking-tight">{isSignUp ? "Criar conta da família" : "Entrar"}</h1>
+      {notice && <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-800">{notice}</p>}
       {isSignUp && (
         <div>
           <label className="label" htmlFor="family_name">
@@ -52,7 +50,7 @@ export function AuthForm({ mode, notice }: { mode: "entrar" | "cadastro"; notice
         />
       </div>
       {state.error && (
-        <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700" role="alert">
+        <p className="rounded-md bg-red-50 p-3 text-sm text-red-700" role="alert">
           {state.error}
         </p>
       )}
@@ -63,14 +61,14 @@ export function AuthForm({ mode, notice }: { mode: "entrar" | "cadastro"; notice
         {isSignUp ? (
           <>
             Já tem conta?{" "}
-            <Link href="/entrar" className="font-bold text-brand-600">
+            <Link href="/entrar" className="font-bold text-brand-700 underline-offset-2 hover:underline">
               Entrar
             </Link>
           </>
         ) : (
           <>
             Ainda não tem conta?{" "}
-            <Link href="/cadastro" className="font-bold text-brand-600">
+            <Link href="/cadastro" className="font-bold text-brand-700 underline-offset-2 hover:underline">
               Criar conta
             </Link>
           </>

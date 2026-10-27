@@ -12,7 +12,7 @@ export default async function BooksPage({ params }: PageProps<"/alunos/[id]/livr
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
       <section className="card h-fit">
-        <h2 className="mb-3 text-lg font-bold">Matérias</h2>
+        <h2 className="mb-3 font-display text-lg font-semibold">Matérias</h2>
         {subjects.length === 0 ? (
           <p className="mb-3 text-sm text-stone-500">Nenhuma matéria ainda.</p>
         ) : (
@@ -47,7 +47,7 @@ export default async function BooksPage({ params }: PageProps<"/alunos/[id]/livr
 
       <div className="space-y-6">
         <section className="card">
-          <h2 className="mb-3 text-lg font-bold">Adicionar livro</h2>
+          <h2 className="mb-3 font-display text-lg font-semibold">Adicionar livro</h2>
           <form action={createBook} className="grid gap-3 sm:grid-cols-2">
             <input type="hidden" name="student_id" value={id} />
             <div className="sm:col-span-2">
@@ -100,8 +100,8 @@ export default async function BooksPage({ params }: PageProps<"/alunos/[id]/livr
           if (list.length === 0) return null;
           return (
             <section key={status.value}>
-              <h2 className="mb-2 text-sm font-extrabold uppercase tracking-wide text-stone-500">
-                {status.label} · {list.length}
+              <h2 className="mb-2 font-display font-semibold">
+                {status.label} <span className="font-sans text-sm font-normal text-stone-500">{list.length}</span>
               </h2>
               <ul className="space-y-2">
                 {list.map((b) => {
@@ -109,7 +109,7 @@ export default async function BooksPage({ params }: PageProps<"/alunos/[id]/livr
                   return (
                     <li key={b.id} className="card flex flex-wrap items-center justify-between gap-3 py-3">
                       <div>
-                        <p className="font-bold">{b.title}</p>
+                        <p className="font-display font-semibold">{b.title}</p>
                         <p className="text-sm text-stone-500">
                           {[b.author, b.finished_on && `lido em ${formatDate(b.finished_on)}`].filter(Boolean).join(" · ")}
                         </p>
@@ -125,7 +125,7 @@ export default async function BooksPage({ params }: PageProps<"/alunos/[id]/livr
                             <input type="hidden" name="id" value={b.id} />
                             <input type="hidden" name="student_id" value={id} />
                             <input type="hidden" name="status" value={s.value} />
-                            <button className="btn-ghost px-2.5 py-1 text-xs">{s.value === "lido" ? "✓ Terminei" : s.label}</button>
+                            <button className="btn-ghost px-2.5 py-1 text-xs">{s.value === "lido" ? "Terminei" : s.label}</button>
                           </form>
                         ))}
                         <form action={deleteBook}>

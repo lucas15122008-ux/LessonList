@@ -27,7 +27,7 @@ export default async function SchedulePage({ params, searchParams }: PageProps<"
     <div className="space-y-6">
       <div className="flex justify-end">
         <Link href={`/imprimir?aluno=${id}`} className="btn-ghost" target="_blank">
-          🖨️ Imprimir cronograma
+          Imprimir cronograma
         </Link>
       </div>
 
@@ -37,39 +37,51 @@ export default async function SchedulePage({ params, searchParams }: PageProps<"
           return (
             <section
               key={d.value}
-              className={`rounded-2xl border bg-white p-3 ${d.value === today ? "border-brand-500 ring-2 ring-brand-100" : "border-stone-200"}`}
+              aria-current={d.value === today ? "date" : undefined}
+              className={`rounded-lg border bg-surface p-3 ${d.value === today ? "border-brand-600" : "border-stone-300/80"}`}
             >
-              <h2 className="mb-2 flex items-center justify-between text-sm font-extrabold uppercase tracking-wide text-stone-500">
-                {d.long}
-                {d.value === today && <span className="chip bg-brand-100 normal-case text-brand-700">hoje</span>}
+              <h2 className="mb-2 flex items-baseline justify-between border-b border-stone-300/80 pb-1.5 font-display font-semibold">
+                <span className={d.value === today ? "marker" : undefined}>{d.long}</span>
+                {d.value === today && <span className="text-xs font-bold text-brand-700">hoje</span>}
               </h2>
               {dayItems.length === 0 ? (
                 <p className="text-sm text-stone-400">Livre</p>
               ) : (
-                <ul className="space-y-2">
+                <ul className="divide-y divide-dashed divide-stone-300">
                   {dayItems.map((i) => (
                     <li
                       key={i.id}
-                      className={`rounded-xl border-l-4 px-2.5 py-1.5 ${i.id === editing?.id ? "bg-brand-50 ring-2 ring-brand-500" : "bg-stone-50"}`}
-                      style={{ borderColor: (i.subject_id && subjectColor.get(i.subject_id)) || student.color }}
+                      className={`py-2 first:pt-0.5 ${i.id === editing?.id ? "-mx-1.5 rounded-md bg-brand-50 px-1.5 ring-2 ring-brand-500" : ""}`}
                     >
-                      <div className="font-mono text-xs text-stone-500">
+                      <div className="text-xs text-stone-500 tabular-nums">
                         {formatTime(i.start_time)}–{formatTime(i.end_time)}
                       </div>
-                      <div className="text-sm font-bold">{i.title}</div>
+                      <div className="flex items-baseline gap-1.5 text-sm font-bold">
+                        <span
+                          className="h-2 w-2 shrink-0 rounded-full"
+                          style={{ background: (i.subject_id && subjectColor.get(i.subject_id)) || student.color }}
+                          aria-hidden
+                        />
+                        {i.title}
+                      </div>
                       {i.notes && <p className="text-xs text-stone-500">{i.notes}</p>}
-                      <div className="mt-1 flex justify-end gap-1">
+                      <div className="mt-0.5 -ml-2 flex gap-0.5">
                         <Link
                           href={`${base}?editar=${i.id}#editar`}
                           scroll={false}
-                          className="rounded-lg px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-100"
+                          className="rounded-md px-2 py-1 text-xs font-semibold text-brand-700 hover:bg-brand-100"
                           aria-label={`Editar ${i.title} de ${d.long.toLowerCase()}`}
                         >
-                          ✎ Editar
+                          Editar
                         </Link>
                         <form action={deleteScheduleItem}>
                           <input type="hidden" name="id" value={i.id} />
-                          <ConfirmButton message={`Remover "${i.title}" de ${d.long.toLowerCase()}?`}>Remover</ConfirmButton>
+                          <ConfirmButton
+                            className="rounded-md px-2 py-1 text-xs font-semibold text-stone-500 transition-colors hover:bg-red-50 hover:text-red-700"
+                            message={`Remover "${i.title}" de ${d.long.toLowerCase()}?`}
+                          >
+                            Remover
+                          </ConfirmButton>
                         </form>
                       </div>
                     </li>
@@ -90,7 +102,7 @@ export default async function SchedulePage({ params, searchParams }: PageProps<"
 
         {others.length > 0 && (
           <section className="card h-fit">
-            <h2 className="mb-1 text-lg font-bold">Usar cronograma de outro filho</h2>
+            <h2 className="mb-1 font-display text-lg font-semibold">Usar cronograma de outro filho</h2>
             <p className="mb-3 text-sm text-stone-600">
               Copia a semana inteira como modelo e depois você ajusta. O cronograma atual de {student.name} será substituído.
             </p>
@@ -177,7 +189,7 @@ function TimeAndNotes({ item }: { item?: ScheduleItem }) {
 function AddForm({ studentId, subjects }: { studentId: string; subjects: Subject[] }) {
   return (
     <section className="card">
-      <h2 className="mb-3 text-lg font-bold">Adicionar atividade</h2>
+      <h2 className="mb-3 font-display text-lg font-semibold">Adicionar atividade</h2>
       <form action={createScheduleItem} className="space-y-3">
         <input type="hidden" name="student_id" value={studentId} />
         <SubjectSelect subjects={subjects} />
@@ -201,7 +213,7 @@ function AddForm({ studentId, subjects }: { studentId: string; subjects: Subject
             {WEEKDAYS.map((d) => (
               <label key={d.value} className="cursor-pointer">
                 <input type="checkbox" name="weekday" value={d.value} className="peer sr-only" />
-                <span className="inline-block rounded-lg border border-stone-300 px-2.5 py-1 text-sm font-semibold peer-checked:border-brand-600 peer-checked:bg-brand-600 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500">
+                <span className="inline-block rounded-md border border-stone-300 bg-white px-2.5 py-1 text-sm font-semibold peer-checked:border-brand-600 peer-checked:bg-brand-600 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500">
                   {d.short}
                 </span>
               </label>
@@ -217,8 +229,8 @@ function AddForm({ studentId, subjects }: { studentId: string; subjects: Subject
 
 function EditForm({ item, subjects, cancelHref }: { item: ScheduleItem; subjects: Subject[]; cancelHref: string }) {
   return (
-    <section id="editar" className="card scroll-mt-32 border-brand-500 ring-2 ring-brand-100">
-      <h2 className="mb-3 text-lg font-bold">Editar atividade</h2>
+    <section id="editar" className="card scroll-mt-32 border-brand-600 ring-2 ring-brand-100">
+      <h2 className="mb-3 font-display text-lg font-semibold">Editar atividade</h2>
       <form action={updateScheduleItem} className="space-y-3">
         <input type="hidden" name="id" value={item.id} />
         <input type="hidden" name="student_id" value={item.student_id} />
@@ -241,7 +253,7 @@ function EditForm({ item, subjects, cancelHref }: { item: ScheduleItem; subjects
                   defaultChecked={d.value === item.weekday}
                   className="peer sr-only"
                 />
-                <span className="inline-block rounded-lg border border-stone-300 px-2.5 py-1 text-sm font-semibold peer-checked:border-brand-600 peer-checked:bg-brand-600 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500">
+                <span className="inline-block rounded-md border border-stone-300 bg-white px-2.5 py-1 text-sm font-semibold peer-checked:border-brand-600 peer-checked:bg-brand-600 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500">
                   {d.short}
                 </span>
               </label>

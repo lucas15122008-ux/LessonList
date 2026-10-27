@@ -36,20 +36,19 @@ export default async function PrintPage({ searchParams }: PageProps<"/imprimir">
           <section key={s.id} className={`mb-10 print:mb-0 ${idx > 0 ? "print:break-before-page" : ""}`}>
             <header className="mb-3 flex items-end justify-between border-b-2 pb-2" style={{ borderColor: s.color }}>
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-stone-500">Cronograma semanal</p>
-                <h1 className="text-2xl font-extrabold">
-                  {s.name}
+                <h1 className="font-display text-2xl font-semibold">
+                  Semana de {s.name}
                   {s.grade && <span className="ml-2 text-base font-semibold text-stone-500">{s.grade}</span>}
                 </h1>
               </div>
-              <p className="text-sm text-stone-500">Semana de ____/____ a ____/____</p>
+              <p className="text-sm text-stone-500">De ____/____ a ____/____</p>
             </header>
 
             <table className="w-full table-fixed border-collapse text-sm">
               <thead>
                 <tr>
                   {days.map((d) => (
-                    <th key={d.value} className="border border-stone-300 bg-stone-100 px-2 py-1.5 text-left font-extrabold">
+                    <th key={d.value} className="border border-stone-300 bg-stone-100 px-2 py-1.5 text-left font-display font-semibold">
                       {d.long}
                     </th>
                   ))}
@@ -63,15 +62,15 @@ export default async function PrintPage({ searchParams }: PageProps<"/imprimir">
                       <td key={d.value} className="h-96 border border-stone-300 p-1.5 align-top print:h-[150mm]">
                         <ul className="space-y-1.5">
                           {dayItems.map((i) => (
-                            <li
-                              key={i.id}
-                              className="break-inside-avoid border-l-4 pl-1.5"
-                              style={{ borderColor: (i.subject_id && color.get(i.subject_id)) || s.color }}
-                            >
-                              <div className="flex items-start gap-1">
-                                <span className="mt-0.5 inline-block h-3 w-3 shrink-0 rounded-sm border border-stone-400" aria-hidden />
+                            <li key={i.id} className="break-inside-avoid">
+                              <div className="flex items-start gap-1.5">
+                                <span
+                                  className="mt-0.5 inline-block h-3 w-3 shrink-0 rounded-sm border-2"
+                                  style={{ borderColor: (i.subject_id && color.get(i.subject_id)) || s.color }}
+                                  aria-hidden
+                                />
                                 <div>
-                                  <div className="text-[11px] text-stone-500">
+                                  <div className="text-[11px] text-stone-500 tabular-nums">
                                     {formatTime(i.start_time)}–{formatTime(i.end_time)}
                                   </div>
                                   <div className="font-bold leading-tight">{i.title}</div>
@@ -88,7 +87,7 @@ export default async function PrintPage({ searchParams }: PageProps<"/imprimir">
               </tbody>
             </table>
 
-            <footer className="mt-2 flex justify-between text-[10px] text-stone-400">
+            <footer className="mt-2 flex justify-between text-[10px] text-stone-500">
               <span>LessonList</span>
               <span>By Pegasus</span>
             </footer>
