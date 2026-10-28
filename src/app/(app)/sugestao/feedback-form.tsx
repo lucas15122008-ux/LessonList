@@ -8,11 +8,9 @@ export function FeedbackForm() {
 
   if (state.sent) {
     return (
-      <div className="card text-center">
-        <div className="text-4xl" aria-hidden>
-          💜
-        </div>
-        <p className="mt-2 font-bold">Obrigado! Sua sugestão foi enviada.</p>
+      <div className="card">
+        <p className="font-display text-lg font-semibold">Obrigado! Sua sugestão foi enviada.</p>
+        <p className="mt-1 text-sm text-stone-600">A gente lê todas. Se tiver outra ideia, é só voltar aqui.</p>
       </div>
     );
   }

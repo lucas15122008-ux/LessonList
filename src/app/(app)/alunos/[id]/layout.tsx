@@ -8,11 +8,11 @@ export default async function StudentLayout({ children, params }: LayoutProps<"/
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="flex items-center gap-2 text-2xl font-extrabold">
-          <span className="h-4 w-4 rounded-full" style={{ background: student.color }} aria-hidden />
+        <h1 className="page-title flex items-center gap-2.5">
+          <span className="h-3.5 w-3.5 shrink-0 rounded-full" style={{ background: student.color }} aria-hidden />
           {student.name}
         </h1>
-        {student.grade && <p className="text-stone-600">{student.grade}</p>}
+        {student.grade && <p className="mt-0.5 text-stone-600">{student.grade}</p>}
       </div>
       <StudentTabs studentId={student.id} />
       {children}

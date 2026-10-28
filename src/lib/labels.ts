@@ -24,7 +24,8 @@ export const RECORD_KINDS: { value: RecordKind; label: string; plural: string }[
   { value: "voluntariado", label: "Voluntariado", plural: "Voluntariado" },
 ];
 
-export const COLORS = ["#6366f1", "#ec4899", "#f59e0b", "#10b981", "#0ea5e9", "#ef4444", "#8b5cf6", "#14b8a6"];
+// Cores de lápis de cor para filhos e matérias. Alunos antigos podem ter cores fora desta lista.
+export const COLORS = ["#2f6fa5", "#c03a4e", "#9c6b0c", "#2f7a52", "#b04a72", "#8a5a3c", "#3f7778", "#6d7a2e"];
 
 const TIME_ZONE = "America/Sao_Paulo";
 

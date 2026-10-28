@@ -23,7 +23,7 @@ export default async function RecordsPage({ params, searchParams }: PageProps<"/
           return (
             <div key={k.value} className="card py-3">
               <p className="text-sm font-semibold text-stone-500">{k.plural}</p>
-              <p className="text-2xl font-extrabold">
+              <p className="font-display text-2xl font-semibold tabular-nums">
                 {k.value === "voluntariado" ? `${volunteerHours.toLocaleString("pt-BR")} h` : count}
               </p>
             </div>
@@ -33,7 +33,7 @@ export default async function RecordsPage({ params, searchParams }: PageProps<"/
 
       <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
         <section className="card h-fit">
-          <h2 className="mb-3 text-lg font-bold">Registrar</h2>
+          <h2 className="mb-3 font-display text-lg font-semibold">Registrar</h2>
           <form action={createRecord} className="space-y-3">
             <input type="hidden" name="student_id" value={id} />
             <div className="grid grid-cols-2 gap-3">
@@ -135,11 +135,11 @@ export default async function RecordsPage({ params, searchParams }: PageProps<"/
                         )}
                         <span className="text-xs text-stone-500">{formatDate(r.record_date)}</span>
                       </div>
-                      <p className="mt-1 font-bold">{r.title}</p>
+                      <p className="mt-1 font-display font-semibold">{r.title}</p>
                       {r.description && <p className="text-sm text-stone-600">{r.description}</p>}
                     </div>
                     <div className="flex shrink-0 flex-col items-end gap-1">
-                      {r.score && <span className="text-xl font-extrabold text-brand-700">{r.score}</span>}
+                      {r.score && <span className="font-display text-xl font-semibold text-brand-700 tabular-nums">{r.score}</span>}
                       {r.hours !== null && <span className="text-sm font-bold text-stone-600">{r.hours.toLocaleString("pt-BR")} h</span>}
                       <form action={deleteRecord}>
                         <input type="hidden" name="id" value={r.id} />

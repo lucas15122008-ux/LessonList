@@ -11,7 +11,7 @@ export default async function ProfilePage({ params }: PageProps<"/alunos/[id]/pe
   return (
     <div className="max-w-md space-y-6">
       <section className="card">
-        <h2 className="mb-3 text-lg font-bold">Dados</h2>
+        <h2 className="mb-3 font-display text-lg font-semibold">Dados</h2>
         <form action={updateStudent} className="space-y-3">
           <input type="hidden" name="id" value={id} />
           <div>
@@ -29,11 +29,11 @@ export default async function ProfilePage({ params }: PageProps<"/alunos/[id]/pe
           <fieldset>
             <legend className="label">Cor</legend>
             <div className="flex flex-wrap gap-2">
-              {COLORS.map((c) => (
+              {(COLORS.includes(student.color) ? COLORS : [student.color, ...COLORS]).map((c) => (
                 <label key={c} className="cursor-pointer">
                   <input type="radio" name="color" value={c} defaultChecked={c === student.color} className="peer sr-only" />
                   <span
-                    className="block h-8 w-8 rounded-full ring-offset-2 peer-checked:ring-2 peer-checked:ring-stone-800 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-500"
+                    className="block h-8 w-8 rounded-full ring-offset-2 peer-checked:ring-2 peer-checked:ring-ink peer-focus-visible:ring-2 peer-focus-visible:ring-brand-600"
                     style={{ background: c }}
                     aria-label={c}
                   />
@@ -46,12 +46,12 @@ export default async function ProfilePage({ params }: PageProps<"/alunos/[id]/pe
       </section>
 
       <section className="card border-red-200">
-        <h2 className="mb-1 text-lg font-bold text-red-700">Remover {student.name}</h2>
+        <h2 className="mb-1 font-display text-lg font-semibold text-red-700">Remover {student.name}</h2>
         <p className="mb-3 text-sm text-stone-600">Apaga o cronograma, as matérias, os livros e o histórico. Não dá para desfazer.</p>
         <form action={deleteStudent}>
           <input type="hidden" name="id" value={id} />
           <ConfirmButton
-            className="rounded-xl bg-red-600 px-4 py-2 text-sm font-bold text-white hover:bg-red-700"
+            className="rounded-md bg-red-700 px-4 py-2 text-sm font-bold text-white hover:bg-red-800"
             message={`Apagar ${student.name} e todos os dados? Não dá para desfazer.`}
           >
             Remover aluno
